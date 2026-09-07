@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Likha Homes — Informe Operativo · Closer Search</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#060606;
+    --void-soft:#0F0F0F;
+    --void-card:#131313;
+    --line:#242220;
+    --gold:#C9A84C;
+    --gold-soft:#C9A96E;
+    --gold-dim:#8E763A;
+    --ink:#EDE7D8;
+    --ink-dim:#B4AC98;
+    --ink-faint:#807A6C;
+    --radius:6px;
+    --maxw:880px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--void);
+    color:var(--ink);
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Cormorant Garamond',serif;
+    color:var(--ink);
+    margin:0 0 .35em 0;
+    line-height:1.15;
+    font-weight:600;
+  }
+  .cinzel{font-family:'Cinzel',serif;}
+  a{color:var(--gold);}
+
+  .shell{display:flex; min-height:100vh;}
+  nav.sidebar{
+    width:256px; flex:0 0 256px;
+    background:var(--void-soft);
+    border-right:1px solid var(--line);
+    color:#C9C3B4;
+    position:sticky; top:0; height:100vh;
+    overflow-y:auto;
+    padding:32px 22px 40px;
+  }
+  .brandmark{display:flex; align-items:center; gap:12px; margin-bottom:6px;}
+  .brandmark svg{width:36px; height:36px; flex:0 0 auto;}
+  .brand-name{font-family:'Cinzel',serif; font-weight:600; font-size:.98rem; color:#fff; letter-spacing:.06em;}
+  .brand-name .search{color:var(--gold);}
+  .brand-tagline{
+    font-size:.65rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold-dim); margin:2px 0 6px 48px;
+  }
+  .brand-client{
+    font-size:.72rem; margin:0 0 24px 48px; color:var(--ink-faint);
+  }
+  .brand-client strong{color:var(--gold-soft);}
+  nav.sidebar .nav-group-label{
+    font-size:.66rem; text-transform:uppercase; letter-spacing:.12em;
+    color:var(--ink-faint); margin:22px 0 8px;
+  }
+  nav.sidebar a{
+    display:block; color:#B4AC98; text-decoration:none;
+    font-size:.87rem; padding:6px 0 6px 12px; border-left:2px solid transparent;
+    transition:.15s;
+  }
+  nav.sidebar a:hover{color:var(--gold-soft); border-left-color:var(--gold);}
+  nav.sidebar a.pending{color:#D08370; font-style:italic;}
+  nav.sidebar a.pending:hover{color:#e0a090;}
+  nav.sidebar .quicklinks{margin-top:28px; padding-top:18px; border-top:1px solid var(--line);}
+  nav.sidebar .quicklinks a{
+    background:rgba(201,168,76,.08); border-radius:4px; margin-bottom:6px;
+    padding:9px 10px 9px 12px; border-left:2px solid var(--gold); font-size:.81rem; color:var(--gold-soft);
+  }
+
+  main{flex:1; min-width:0;}
+
+  .topbar{
+    background:var(--void-card); color:var(--ink-dim);
+    padding:14px 44px; display:flex; gap:26px; flex-wrap:wrap;
+    align-items:center; font-size:.82rem;
+    border-bottom:1px solid var(--gold-dim);
+  }
+  .topbar strong{color:var(--gold); font-weight:600;}
+  .topbar .divider{width:1px; height:14px; background:var(--line);}
+
+  .hero{
+    padding:64px 44px 46px;
+    background:
+      radial-gradient(ellipse at 88% -10%, rgba(201,168,76,.10), transparent 55%),
+      var(--void);
+    border-bottom:1px solid var(--line);
+  }
+  .hero .eyebrow{
+    font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--gold); font-weight:600; margin-bottom:16px;
+    display:flex; align-items:center; gap:10px;
+    font-family:'Cinzel',serif;
+  }
+  .hero h1{font-size:2.7rem; max-width:760px; font-weight:600; color:#fff;}
+  .hero .lede{max-width:660px; font-size:1.06rem; color:var(--ink-dim); margin-top:16px;}
+  .hero .promise{
+    margin-top:26px; padding:20px 24px; background:var(--void-card);
+    border-left:2px solid var(--gold); border-radius:0 6px 6px 0;
+    max-width:660px; font-family:'Cormorant Garamond',serif; font-size:1.25rem;
+    font-weight:600; font-style:italic; color:var(--gold-soft);
+  }
+
+  section{padding:52px 44px; max-width:var(--maxw); margin:0 auto; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-tag{
+    font-size:.7rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold-dim); font-weight:600; margin-bottom:8px; font-family:'Cinzel',serif;
+  }
+  section h2{font-size:1.75rem; margin-bottom:.3em; color:#fff;}
+  section h3{font-size:1.18rem; margin-top:28px; color:var(--gold-soft); font-weight:600;}
+  section p{color:var(--ink-dim); max-width:70ch;}
+  .subnote{color:var(--ink-faint); font-size:.88rem;}
+
+  .seal-divider{
+    display:flex; align-items:center; gap:14px; margin:0 44px;
+    max-width:var(--maxw); margin-left:auto; margin-right:auto;
+  }
+  .seal-divider .line{flex:1; height:1px; background:linear-gradient(90deg,var(--line),transparent);}
+  .seal-divider .line.right{background:linear-gradient(90deg,transparent,var(--line));}
+  .seal-divider svg{width:22px; height:22px;}
+
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:18px;}
+  .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:18px;}
+  .card{
+    background:var(--void-card); border:1px solid var(--line);
+    border-radius:var(--radius); padding:18px 20px;
+  }
+  .card h4{font-size:1.02rem; margin-bottom:6px; color:var(--ink);}
+  .card p{margin:0; font-size:.9rem; color:var(--ink-dim);}
+  .pill{
+    display:inline-block; font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    padding:3px 10px; border-radius:2px; background:rgba(201,168,76,.1); color:var(--gold);
+    margin-bottom:8px; border:1px solid var(--gold-dim); font-family:'Cinzel',serif;
+  }
+
+  table{width:100%; border-collapse:collapse; margin-top:18px; font-size:.9rem; background:var(--void-card); border-radius:var(--radius); overflow:hidden;}
+  thead th{
+    background:#000; color:var(--gold); text-align:left; padding:11px 14px;
+    font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600; font-family:'Cinzel',serif;
+    border-bottom:1px solid var(--gold-dim);
+  }
+  tbody td{padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top; color:var(--ink-dim);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.015);}
+  td.label{font-weight:600; color:var(--ink); white-space:nowrap;}
+
+  .phase{display:grid; grid-template-columns:44px 1fr; gap:18px; margin-top:22px;}
+  .phase .num{
+    width:44px; height:44px; border-radius:50%; background:#000; border:1px solid var(--gold-dim);
+    color:var(--gold); display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel',serif; font-weight:600; font-size:.98rem;
+  }
+  .phase .num.active{background:var(--gold); color:#060606; border-color:var(--gold);}
+  .phase-body{padding-bottom:8px; border-left:1px solid var(--line); padding-left:18px; margin-left:22px; margin-top:-40px; padding-top:44px;}
+  .phase-body h4{margin-bottom:4px; font-size:1.05rem; color:var(--ink);}
+  .phase-body .result{
+    margin-top:8px; font-size:.85rem; background:rgba(201,168,76,.08); color:var(--gold-soft);
+    padding:8px 12px; border-radius:4px; display:inline-block; border:1px solid var(--gold-dim);
+  }
+
+  details.acc{
+    background:var(--void-card); border:1px solid var(--line); border-radius:var(--radius);
+    margin-top:10px; overflow:hidden;
+  }
+  details.acc summary{
+    cursor:pointer; list-style:none; padding:14px 18px; font-weight:600; color:var(--ink);
+    display:flex; justify-content:space-between; align-items:center; font-size:.95rem;
+  }
+  details.acc summary::-webkit-details-marker{display:none;}
+  details.acc summary::after{content:'+'; font-family:'Cormorant Garamond',serif; font-size:1.4rem; color:var(--gold); flex:0 0 auto;}
+  details.acc[open] summary::after{content:'–';}
+  details.acc[open] summary{border-bottom:1px solid var(--line);}
+  details.acc .acc-body{padding:14px 18px 18px; font-size:.9rem; color:var(--ink-dim);}
+  details.acc .acc-body p{margin:.5em 0;}
+  details.acc .acc-body .say{
+    background:rgba(201,168,76,.06); border-left:2px solid var(--gold); padding:10px 14px;
+    border-radius:0 4px 4px 0; margin:8px 0; font-style:italic; color:var(--ink);
+  }
+
+  .paybox{background:#000; border:1px solid var(--gold-dim); border-radius:8px; padding:28px 30px; margin-top:22px;}
+  .paybox h3{color:var(--gold); margin-top:0; font-family:'Cinzel',serif; font-size:1.1rem; letter-spacing:.03em;}
+  .pay-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px;}
+  .pay-card{background:var(--void-card); border:1px solid var(--line); border-radius:6px; padding:16px;}
+  .pay-card .plan{font-weight:600; font-size:.9rem; color:var(--ink); margin-bottom:2px;}
+  .pay-card .amount{font-family:'Cormorant Garamond',serif; font-weight:700; color:var(--gold); font-size:1.35rem; margin-bottom:6px;}
+  .pay-card .detail{font-size:.78rem; color:var(--ink-dim);}
+
+  .dodont{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:18px;}
+  .dodont .box{border-radius:var(--radius); padding:16px 18px; border:1px solid var(--line);}
+  .dodont .do{background:rgba(201,168,76,.05);}
+  .dodont .dont{background:rgba(150,40,30,.08); border-color:#4A2A24;}
+  .dodont h4{margin-bottom:8px; font-size:.85rem; text-transform:uppercase; letter-spacing:.06em; font-family:'Cinzel',serif;}
+  .dodont .do h4{color:var(--gold-soft);}
+  .dodont .dont h4{color:#D08370;}
+  .dodont ul{margin:0; padding-left:18px; font-size:.87rem; color:var(--ink-dim);}
+  .dodont li{margin-bottom:5px;}
+
+  .callout{
+    background:rgba(201,168,76,.07); border:1px solid var(--gold-dim); border-radius:var(--radius);
+    padding:16px 20px; margin-top:18px; font-size:.9rem; color:var(--ink-dim);
+  }
+  .callout strong{color:var(--gold);}
+  .callout.warn{background:rgba(150,40,30,.09); border-color:#4A2A24;}
+  .callout.warn strong{color:#D08370;}
+  .propuesta-badge{display:inline-block; font-size:.68rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; padding:3px 10px; border-radius:2px; background:rgba(164,139,224,.12); color:#A48BE0; border:1px solid #5C4A8A; font-family:'Cinzel',serif; margin-bottom:10px;}
+
+  footer{
+    padding:34px 44px 60px; max-width:var(--maxw); margin:0 auto;
+    color:var(--ink-faint); font-size:.8rem; display:flex; align-items:center; gap:10px;
+  }
+  footer svg{width:18px; height:18px; opacity:.6;}
+
+  .checklist{list-style:none; padding:0; margin-top:16px;}
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start; padding:7px 0; font-size:.9rem; color:var(--ink-dim);
+    border-bottom:1px dashed var(--line);
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .checklist .box{flex:0 0 15px; width:15px; height:15px; border:1px solid var(--gold-dim); border-radius:2px; margin-top:2px;}
+
+  @media (max-width:900px){
+    .shell{flex-direction:column;}
+    nav.sidebar{position:relative; width:100%; height:auto; flex:none;}
+    .grid-2, .grid-3, .grid-4, .pay-grid, .dodont{grid-template-columns:1fr;}
+    .hero, section, .topbar, footer{padding-left:22px; padding-right:22px;}
+    .seal-divider{margin-left:22px; margin-right:22px;}
+    .hero h1{font-size:2.1rem;}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <nav class="sidebar">
+    <div class="brandmark">
+      <svg viewBox="0 0 100 100" fill="none">
+        <polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/>
+        <polygon points="50,16 79,32 79,68 50,84 21,68 21,32" stroke="#8E763A" stroke-width="1.2" fill="none"/>
+        <path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <div class="brand-name">CLOSER<span class="search"> SEARCH</span></div>
+      </div>
+    </div>
+    <div class="brand-tagline">Selección de talento de cierre</div>
+    <div class="brand-client">Cliente: <strong>Likha Homes</strong></div>
+
+    <div class="nav-group-label">El servicio</div>
+    <a href="#resumen">Resumen ejecutivo</a>
+    <a href="#proceso">Proceso en 3 pasos</a>
+    <a href="#resultados">Resultados: antes/después</a>
+    <a href="#perfiles">Perfiles válidos de propietario</a>
+    <a href="#players">Con quién nos vamos a encontrar</a>
+    <a href="#servicio">Qué incluimos</a>
+    <a href="#costes">Coste extra para el propietario</a>
+    <a href="#argumentario">Por qué compensa más</a>
+    <a href="#rentabilidad">Estudio de rentabilidad gratis</a>
+    <a href="#reto">El reto real: regulación y licencia</a>
+    <a href="#idioma">El perfil extranjero</a>
+    <a href="#comite-inmobiliario">Revisión del comité inmobiliario</a>
+
+    <div class="nav-group-label">Venta</div>
+    <a class="pending" href="#huecos">Avatar y dolores — pendiente</a>
+    <a href="#angulos">Ángulos de comunicación (propuesta)</a>
+    <a href="#objeciones-likha">Banco de objeciones (propuesta)</a>
+    <a href="#limites-likha">Límites, ampliados (propuesta)</a>
+    <a href="#checklist-likha">Checklist de cierre (propuesta)</a>
+    <a href="#prueba-social">Casos reales</a>
+    <a href="#testimonios">Testimonios reales</a>
+    <a href="#mercado">Datos de mercado (blog)</a>
+
+    <div class="nav-group-label">Operativa</div>
+    <a href="#inversion">Inversión: cómo cobramos</a>
+    <a href="#equipo">Equipo y procedimiento del closer</a>
+    <a href="#recursos">Recursos y enlaces</a>
+    <a href="#huecos">Huecos pendientes de este informe</a>
+
+    <div class="quicklinks">
+      <a href="#argumentario">Argumentario de llamada</a>
+      <a href="#comite-inmobiliario">Semáforo regulatorio</a>
+      <a href="#inversion">Cómo cobramos</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#huecos">Qué falta por completar</a>
+    </div>
+  </nav>
+
+  <main>
+    <div class="topbar">
+      <span><strong>Cliente</strong> Likha Homes</span>
+      <span class="divider"></span>
+      <span>Gestión de alquiler vacacional en toda España</span>
+      <span class="divider"></span>
+      <span>Comisión: 20% + IVA sobre el neto</span>
+    </div>
+
+    <div class="hero">
+      <div class="eyebrow">◆ Briefing interno · Closer Search</div>
+      <h1>Likha Homes — Informe Operativo</h1>
+      <p class="lede">Gestora de alquiler vacacional (corta estancia) que se encarga de la propiedad de un tercero de principio a fin, para que genere ingresos sin que el propietario tenga que ocuparse de nada. Trabajan en toda España.</p>
+      <div class="promise">"Máximo beneficio sin mover un dedo — de la gestión activa nos encargamos nosotros."</div>
+    </div>
+
+    <section id="resumen">
+      <div class="section-tag">El servicio</div>
+      <h2>Resumen ejecutivo</h2>
+      <p>Likha Homes gestiona de principio a fin propiedades de terceros para alquiler vacacional (corta estancia) en toda España: precios dinámicos, atención al huésped 24/7, limpieza y mantenimiento, posicionamiento en plataformas, verificación legal de huéspedes, y acompañamiento para la licencia turística.</p>
+      <div class="grid-4">
+        <div class="card"><h4>+40%</h4><p>Más ingresos frente a gestión propia</p></div>
+        <div class="card"><h4>24/7</h4><p>Atención a huéspedes</p></div>
+        <div class="card"><h4>4.9</h4><p>Valoración media</p></div>
+        <div class="card"><h4>15+</h4><p>Propiedades gestionadas actualmente</p></div>
+      </div>
+      <div class="grid-2" style="margin-top:14px;">
+        <div class="card"><h4>Cómo cobran</h4><p>Comisión del 20% + IVA sobre el neto (lo que genera la propiedad, descontando comisión de plataforma y limpieza). Sin cuotas fijas ni permanencia — la comisión solo existe si la propiedad genera ingresos.</p></div>
+        <div class="card"><h4>Zona de operación</h4><p>Toda España — trabajan donde la rentabilidad es real: costa mediterránea, cantábrico y ciudades de demanda. Casos reales confirmados en Alicante, Murcia y Cantabria (ver "Casos reales" más abajo).</p></div>
+      </div>
+      <div class="callout"><strong>Publican en:</strong> Airbnb, Booking.com, Vrbo, página propia, Spotahome, Agoda y otras plataformas.</div>
+    </section>
+
+    <section id="proceso">
+      <div class="section-tag">Cómo empieza el propietario</div>
+      <h2>Proceso en 3 pasos</h2>
+      <div class="phase">
+        <div class="num active">1</div>
+        <div class="phase-body"><h4>Consulta gratuita</h4><p>Analizan la propiedad, estiman su potencial real y diseñan la estrategia ideal. Sin compromiso, sin permanencia.</p></div>
+      </div>
+      <div class="phase">
+        <div class="num active">2</div>
+        <div class="phase-body"><h4>Preparación y alta</h4><p>Fotografía profesional, anuncios optimizados, domótica y documentación legal — lo gestionan ellos.</p></div>
+      </div>
+      <div class="phase">
+        <div class="num active">3</div>
+        <div class="phase-body"><h4>Empieza a ganar</h4><p>El propietario cobra cada mes con un informe detallado de reservas, ingresos y ocupación — todo visible en tiempo real.</p></div>
+      </div>
+    </section>
+
+    <section id="resultados">
+      <div class="section-tag">Datos reales</div>
+      <h2>La diferencia de gestión profesional</h2>
+      <div class="dodont">
+        <div class="box dont">
+          <h4>Antes · gestión propia</h4>
+          <ul>
+            <li>Horas perdidas gestionando reservas y mensajes</li>
+            <li>Precios estáticos que no se adaptan a la demanda</li>
+            <li>Limpieza y mantenimiento a cargo del propietario</li>
+            <li>Incertidumbre sobre normativa y trámites legales</li>
+          </ul>
+          <div class="callout warn" style="margin-top:12px;"><strong>52%</strong> de ocupación media</div>
+        </div>
+        <div class="box do">
+          <h4>Con Likha Homes</h4>
+          <ul>
+            <li>Gestión completa — el propietario recibe el ingreso y ya está</li>
+            <li>Precios dinámicos que maximizan ingresos cada día</li>
+            <li>Limpieza, check-in y mantenimiento totalmente cubiertos</li>
+            <li>Cumplimiento legal garantizado en todo momento</li>
+          </ul>
+          <div class="callout" style="margin-top:12px;"><strong>88%</strong> de ocupación media lograda</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="perfiles">
+      <div class="section-tag">A quién buscamos</div>
+      <h2>Perfiles válidos de propietario</h2>
+      <p>No es un único perfil — los 4 son leads válidos:</p>
+      <div class="phase">
+        <div class="num active">1</div>
+        <div class="phase-body">
+          <h4>Propietario particular con vivienda infrautilizada o mal gestionada</h4>
+          <p>El perfil principal — es el que mayoritariamente se va a repartir en listas, porque la tasa de cierre es más alta con este perfil.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="num active">2</div>
+        <div class="phase-body">
+          <h4>Propietario que ya alquila a largo plazo (temporada/curso completo)</h4>
+          <p>No sabe gestionar el alquiler vacacional de corta estancia, quiere más rentabilidad, y está dispuesto a delegarlo por completo.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="num active">3</div>
+        <div class="phase-body">
+          <h4>Propietario que ya tiene su vivienda en venta</h4>
+          <p>Conseguir que se lo replantee y vea que gestionarla en alquiler vacacional le puede compensar más que vender.</p>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="num active">4</div>
+        <div class="phase-body">
+          <h4>Propietario extranjero con segunda vivienda en España</h4>
+          <p>Quiere rentabilizarla en los periodos en los que no está aquí.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="players">
+      <div class="section-tag">El mercado</div>
+      <h2>Con quién nos vamos a encontrar</h2>
+      <div class="grid-2">
+        <div class="card"><h4>Particular</h4><p>Dueño individual de la vivienda. Es lo que se va a pasar en las listas mayoritariamente — la tasa de cierre es más alta con este perfil.</p></div>
+        <div class="card"><h4>Agente inmobiliario</h4><p>Profesional individual, no vinculado a una agencia — trabaja su propia cartera de propietarios.</p></div>
+        <div class="card"><h4>Inmobiliaria</h4><p>Agencia con cartera de propietarios en gestión — puede aportar volumen de leads.</p></div>
+        <div class="card"><h4>Promotora</h4><p>Constructora/desarrolladora — puede tener inventario propio sin vender o en alquiler.</p></div>
+      </div>
+      <div class="callout"><strong>Nota:</strong> los otros tres perfiles (agente, inmobiliaria, promotora) se incluyen por si se quiere probar ese canal — el volumen sería mucho mayor que solo con particulares, aunque cerrar cueste más.</div>
+    </section>
+
+    <section id="servicio">
+      <div class="section-tag">Qué vende Likha Homes</div>
+      <h2>Qué incluimos</h2>
+      <ul style="color:var(--ink-dim);">
+        <li>Precios dinámicos inteligentes — estrategias basadas en datos de mercado en tiempo real (temporada, demanda, competencia), revisadas y ajustadas constantemente.</li>
+        <li>Respuesta a huéspedes 24/7 y al instante.</li>
+        <li>Implementación y coordinación de equipos de limpieza y mantenimiento profesional.</li>
+        <li>Optimización y posicionamiento en las plataformas principales (Airbnb, Booking, etc.).</li>
+        <li>Verificación de identidad y registro de huéspedes ante las autoridades — requisito legal obligatorio del que se encargan ellos.</li>
+        <li>Acompañamiento para obtener la licencia turística.</li>
+        <li>Asesoramiento de home staging para alquiler vacacional.</li>
+        <li>Guía del huésped interactiva — manual digital con instrucciones y recomendaciones locales.</li>
+        <li>Decisiones con datos de mercado — rendimiento de cada propiedad frente a su competencia real.</li>
+      </ul>
+    </section>
+
+    <section id="costes">
+      <div class="section-tag">Qué aporta el propietario</div>
+      <h2>Coste extra para el propietario</h2>
+      <table>
+        <thead><tr><th>Elemento</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Equipamiento básico</td><td>Todo lo necesario para operar la vivienda: toallas y sábanas (con repuesto), caja de seguridad para llaves, secador, y demás elementos esenciales de la actividad — lo aporta el propietario.</td></tr>
+          <tr><td class="label">Domótica</td><td>Cerraduras inteligentes, sensores — Likha Homes asesora sobre ello, pero el coste lo asume el propietario.</td></tr>
+          <tr><td class="label">Reportaje de fotos profesional</td><td>Opcional, según el estado de las fotos actuales — unos 150-250€ según tamaño de la vivienda.</td></tr>
+          <tr><td class="label">Limpieza inicial</td><td>Opcional, solo si la vivienda lo necesita antes de publicarla.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="argumentario">
+      <div class="section-tag">Para la llamada</div>
+      <h2>Por qué compensa más</h2>
+      <p>Argumentario alquiler vacacional vs. alquiler de larga estancia — así se lo puede contar el closer directamente al propietario:</p>
+      <div class="dodont">
+        <div class="box do">
+          <h4>A favor del vacacional</h4>
+          <ul>
+            <li>Puedes usar tu propia vivienda cuando quieras — se bloquean las fechas que digas, sin depender de que un inquilino se vaya.</li>
+            <li>No hay inquilino permanente — la rotación constante y el cobro anticipado vía plataforma reducen mucho el riesgo de impago y de que alguien se quede en la vivienda (no decir "cero riesgo de okupación": en corta estancia también puede ocurrir).</li>
+            <li>La vivienda se revisa y limpia constantemente entre huéspedes — cualquier problema se detecta mucho antes que con un inquilino de larga estancia.</li>
+            <li>Rentabilidad por noche normalmente más alta que un alquiler de larga estancia tradicional, si la ocupación se gestiona bien.</li>
+            <li>Máximo beneficio sin mover un dedo — de la gestión activa se encarga Likha Homes.</li>
+          </ul>
+        </div>
+        <div class="box dont">
+          <h4>No prometer</h4>
+          <ul>
+            <li>No garantizar una cifra de rentabilidad exacta sin haber hecho antes el estudio de la vivienda concreta.</li>
+            <li>No prometer licencia turística garantizada — depende de la normativa de cada comunidad autónoma (ver "El reto real").</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="rentabilidad">
+      <div class="section-tag">Herramienta opcional</div>
+      <h2>Estudio de rentabilidad gratis</h2>
+      <p>Una forma de ayudar a cerrar, no obligatoria: ofrecer al propietario un estudio de rentabilidad gratuito y sin compromiso de su vivienda concreta — cuánto podría generar en alquiler vacacional con gestión profesional, entregado como documento.</p>
+    </section>
+
+    <section id="reto">
+      <div class="section-tag">El reto real</div>
+      <h2>Regulación y licencia turística</h2>
+      <p>No basta con encontrar al propietario dispuesto — la vivienda también tiene que estar en una zona donde la regulación lo permita. Dos escenarios válidos:</p>
+      <div class="phase">
+        <div class="num active">1</div>
+        <div class="phase-body"><h4>La vivienda ya tiene licencia turística en vigor</h4></div>
+      </div>
+      <div class="phase">
+        <div class="num active">2</div>
+        <div class="phase-body"><h4>La vivienda está en zona donde aún se pueden solicitar licencias nuevas</h4><p>Sin moratoria ni bloqueo administrativo.</p></div>
+      </div>
+      <div class="callout warn"><strong>Importante:</strong> cada comunidad autónoma tiene su propia legislación, con reglas concretas — algunas fijan incluso un número mínimo de noches por reserva. La licencia turística no es un trámite opcional: sin ella, las plataformas (Airbnb, Booking, etc.) no permiten publicar ni anunciar la propiedad.</div>
+      <div class="callout"><strong>Ojo:</strong> la licencia autonómica ya no es el único filtro. Hay tres capas más (registro estatal, comunidad de propietarios y zonas bloqueadas) que se detallan en <a href="#comite-inmobiliario">Revisión del comité inmobiliario</a>, con las preguntas de cualificación para el guion.</div>
+    </section>
+
+    <section id="idioma">
+      <div class="section-tag">Perfil internacional</div>
+      <h2>El perfil extranjero</h2>
+      <p>No hay un único perfil de nacionalidad — hay muchos españoles (madrileños, por ejemplo) con una casa en la costa que usan cuando quieren o que tienen como inversión, y también muchos propietarios extranjeros con segunda vivienda en España.</p>
+      <div class="callout"><strong>Por qué suelen ser buen cliente:</strong> no están en el país y son quienes más necesitan una gestión real — buscan sacar rentabilidad y, como mínimo, cubrir los gastos de mantenimiento en los periodos en que no la usan. Por eso el equipo tiene que poder comunicarse en inglés también, no solo en español.</div>
+    </section>
+
+    <div class="seal-divider"><span class="line"></span>
+      <svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="3"/></svg>
+    <span class="line right"></span></div>
+
+    <section id="prueba-social">
+      <div class="section-tag">Prueba social</div>
+      <h2>Casos reales</h2>
+      <table>
+        <thead><tr><th>Propiedad</th><th>Ubicación</th><th>Valoración</th><th>ADR / detalle</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Apartamento vistas mar y montaña</td><td>San Vicente de la Barquera (Cantabria)</td><td>5,0 (6 reseñas)</td><td>ADR agosto: 199€ · a 5' de la playa</td></tr>
+          <tr><td class="label">Ático Golf Resort, con BBQ</td><td>Mar Menor Golf, Murcia</td><td>Nuevo</td><td>ADR benchmark: 155€</td></tr>
+          <tr><td class="label">Chalet con jacuzzi y BBQ</td><td>Torrevieja (Alicante)</td><td>4,77 (13 reseñas)</td><td>ADR agosto: +200€ (pico de temporada alta; el ADR medio anual de la zona ronda 93-123€, ver blog) · a 8' de la playa</td></tr>
+          <tr><td class="label">Adosado con piscina privada</td><td>San Miguel de Salinas (Alicante)</td><td>4,75 (4 reseñas)</td><td>Admite mascotas · a 15' de Torrevieja</td></tr>
+          <tr><td class="label">Apartamento resort de golf</td><td>Alhama de Murcia (Murcia)</td><td>4,78 (58 reseñas)</td><td>"Guest Favorite" en Airbnb</td></tr>
+        </tbody>
+      </table>
+      <p class="subnote">15+ propiedades gestionadas en total (cifra de la web). Publicadas en Airbnb, Booking.com, Vrbo, página propia, Spotahome y Agoda.</p>
+    </section>
+
+    <section id="testimonios">
+      <div class="section-tag">Prueba social</div>
+      <h2>Testimonios reales de propietarios</h2>
+      <div class="grid-3">
+        <div class="card"><h4>★★★★★ Manuel A. — Los Alcázares</h4><p>"Desde que confié en Likha Homes mis ingresos subieron un 35% y no tengo que preocuparme de nada."</p></div>
+        <div class="card"><h4>★★★★★ Carmen R. — Mar Menor</h4><p>"Profesionales y transparentes. Veo reservas e ingresos en tiempo real desde el panel. Totalmente recomendable."</p></div>
+        <div class="card"><h4>★★★★★ José Luis P. — Torre-Pacheco</h4><p>"Sé que mi propiedad está en buenas manos y los huéspedes reciben una atención de 10. Los resultados hablan solos."</p></div>
+      </div>
+    </section>
+
+    <section id="mercado">
+      <div class="section-tag">Datos de mercado</div>
+      <h2>Recursos de blog (argumentario de zona)</h2>
+      <table>
+        <thead><tr><th>Zona</th><th>Dato clave</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Torrevieja (Alicante)</td><td>ADR entre 93€ y 123€, demanda de costa estable; el jacuzzi marca la diferencia frente a la competencia</td></tr>
+          <tr><td class="label">San Vicente de la Barquera (Cantabria)</td><td>+10% de ingresos en un mercado que pierde oferta — los listings en Cantabria caen un 23,9% mientras los precios suben; ADR de agosto en 199€</td></tr>
+        </tbody>
+      </table>
+      <p class="subnote">Artículos completos en <a href="https://likhahomes.com/blog" target="_blank" rel="noopener">likhahomes.com/blog</a> — útiles como argumentario de zona en llamada.</p>
+    </section>
+
+    <section id="inversion">
+      <div class="section-tag">Cómo cobra Likha Homes</div>
+      <h2>Inversión</h2>
+      <div class="paybox">
+        <h3>Estructura de comisión</h3>
+        <div class="pay-grid">
+          <div class="pay-card"><div class="plan">Comisión</div><div class="amount">20% + IVA</div><div class="detail">Sobre el neto — lo que genera la propiedad, descontando comisión de plataforma y gasto de limpieza</div></div>
+          <div class="pay-card"><div class="plan">Cuota fija</div><div class="amount">Ninguna</div><div class="detail">Sin cuotas mensuales fijas</div></div>
+          <div class="pay-card"><div class="plan">Permanencia</div><div class="amount">Ninguna</div><div class="detail">La comisión existe solo si la propiedad genera ingresos</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo">
+      <div class="section-tag">Operativa comercial</div>
+      <h2>Equipo y procedimiento del closer</h2>
+      <p>El equipo comercial hace prospección por llamada en frío, a partir de un listado de prospectos que se les facilita.</p>
+      <div class="grid-2">
+        <div class="card"><h4>2 Setter-Closers</h4><p>Mismo rol — cada uno hace tanto la prospección (setter) como el cierre (closer) de sus propias llamadas.</p></div>
+        <div class="card"><h4>Fuente de contactos</h4><p>Listado de prospectos facilitado, del que parten para la prospección telefónica en frío.</p></div>
+      </div>
+      <table>
+        <thead><tr><th>Turno</th><th>Horario</th><th>Tarea</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Mañana</td><td>4 horas</td><td>Prospección por llamada en frío sobre el listado facilitado</td></tr>
+          <tr><td class="label">Tarde</td><td>4 horas</td><td>Prospección por llamada en frío sobre el listado facilitado</td></tr>
+        </tbody>
+      </table>
+      <div class="callout warn"><strong>Pendiente de concretar:</strong> el checklist de cierre de llamada, el guion de prospección en frío, y las reglas de reparto del listado de prospectos entre los dos turnos (para evitar que ambos llamen al mismo contacto) no están definidos todavía.</div>
+    </section>
+
+    <div class="seal-divider"><span class="line"></span>
+      <svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#5C4A8A" stroke-width="3"/></svg>
+    <span class="line right"></span></div>
+
+    <section id="angulos">
+      <span class="propuesta-badge">◆ Pendiente de validar con Likha Homes</span>
+      <div class="section-tag">Comunicación</div>
+      <h2>Ángulos ganadores de comunicación</h2>
+      <p>Construidos a partir del propio copy de la web y de los datos que ya tenemos — no están probados todavía en captación real.</p>
+      <div class="grid-2">
+        <div class="card"><h4>1. Cero esfuerzo, máximo rendimiento</h4><p>"Máximo beneficio sin mover un dedo." Apela al propietario que quiere ingresos pasivos de verdad, sin encargarse de nada.</p></div>
+        <div class="card"><h4>2. Cero riesgo de compromiso</h4><p>"Sin permanencia, sin costes ocultos, sin cuota fija — solo cobramos si tú ganas." Reduce la fricción de "probar algo nuevo".</p></div>
+        <div class="card"><h4>3. La cifra que convence</h4><p>"Del 52% al 88% de ocupación media." Un dato numérico como gancho, en vez de una promesa vaga. <em>Pendiente de confirmar con Likha si es media anual o de temporada alta y sobre cuántas propiedades — hasta entonces, presentarlo como "en propiedades gestionadas" y no como promesa.</em></p></div>
+        <div class="card"><h4>4. Prueba social real</h4><p>Los 3 testimonios con nombre (Manuel A., Carmen R., José Luis P.) — usar el de la zona más parecida a la del prospecto.</p></div>
+      </div>
+      <div class="callout warn"><strong>Sin validar:</strong> son ángulos razonables por el material disponible, pero nadie los ha probado todavía en una campaña o llamada real de Likha Homes.</div>
+    </section>
+
+    <section id="objeciones-likha">
+      <span class="propuesta-badge">◆ Pendiente de validar con Likha Homes</span>
+      <div class="section-tag">Manejo de objeciones</div>
+      <h2>Banco de objeciones</h2>
+      <p>Objeciones típicas del sector de gestión de alquiler vacacional, con una respuesta razonable basada en lo que ya sabemos del servicio — no son literales de ninguna llamada real de Likha Homes.</p>
+      <details class="acc" open>
+        <summary>"Prefiero gestionarlo yo mismo"</summary>
+        <div class="acc-body"><p class="say">"Lo entiendo — mucha gente empieza así. La diferencia es el tiempo: nuestros propietarios pasan de un 52% a un 88% de ocupación media porque los precios se ajustan cada día y alguien responde al huésped al instante, 24/7. ¿Cuánto tiempo le dedicas tú ahora mismo a la semana?"</p></div>
+      </details>
+      <details class="acc">
+        <summary>"Me preocupa la seguridad / mis llaves"</summary>
+        <div class="acc-body"><p class="say">"Es una preocupación muy habitual. Verificamos la identidad de cada huésped antes de entrar, y con domótica (cerraduras inteligentes) tú puedes ver quién entra y sale en todo momento desde el panel."</p></div>
+      </details>
+      <details class="acc">
+        <summary>"¿Y si baja la ocupación?"</summary>
+        <div class="acc-body"><p class="say">"Por eso hacemos primero un estudio de rentabilidad gratuito de tu vivienda concreta — así sabes de antemano una estimación realista antes de decidir nada, no una promesa genérica."</p></div>
+      </details>
+      <details class="acc">
+        <summary>"¿Puedo recuperar mi vivienda cuando quiera?"</summary>
+        <div class="acc-body"><p class="say">"Sí — nos dices las fechas que necesitas y te las bloqueamos, sin depender de que un inquilino se vaya, como pasaría con un alquiler de larga estancia."</p></div>
+      </details>
+      <details class="acc">
+        <summary>"El 20% + IVA me parece mucho"</summary>
+        <div class="acc-body"><p class="say">"Es sobre el neto, y solo se cobra si la propiedad genera ingresos — no hay cuota fija ni permanencia. Con la gestión profesional, la ocupación sube de forma que el neto que te queda a ti suele ser mayor que gestionándolo tú mismo con menos ocupación."</p></div>
+      </details>
+      <div class="callout warn"><strong>Sin validar:</strong> respuestas razonadas a partir del servicio conocido — no vienen de un banco de objeciones real recogido en llamadas de Likha Homes.</div>
+    </section>
+
+    <section id="limites-likha">
+      <span class="propuesta-badge">◆ Pendiente de validar con Likha Homes</span>
+      <div class="section-tag">Qué no prometer</div>
+      <h2>Límites, ampliados</h2>
+      <div class="dodont">
+        <div class="box dont">
+          <h4>Nunca prometer</h4>
+          <ul>
+            <li>Una cifra exacta de ingresos u ocupación sin haber hecho antes el estudio de rentabilidad de la vivienda concreta</li>
+            <li>Que la licencia turística está garantizada, sin haber comprobado la normativa de esa comunidad autónoma en concreto</li>
+            <li>Una fecha de inicio de gestión antes de verificar qué preparación necesita la vivienda (fotos, domótica, documentación)</li>
+          </ul>
+        </div>
+        <div class="box do">
+          <h4>Sí se puede decir</h4>
+          <ul>
+            <li>Rangos y ejemplos reales de otras propiedades gestionadas (ADR, ocupación media del 88%)</li>
+            <li>Que se acompaña en el proceso de solicitud de licencia turística si la zona lo permite</li>
+            <li>Que no hay permanencia ni cuota fija — el riesgo para el propietario es bajo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="callout warn"><strong>Hueco real sin resolver:</strong> qué pasa exactamente ante daños causados por huéspedes o disputas — esto no aparece en ningún material de Likha Homes y no se debe improvisar una política en llamada sin que el cliente la confirme antes.</div>
+    </section>
+
+    <section id="checklist-likha">
+      <span class="propuesta-badge">◆ Pendiente de validar con Likha Homes</span>
+      <div class="section-tag">Cierre de llamada</div>
+      <h2>Checklist de cierre de llamada</h2>
+      <p>Adaptado del mismo patrón que ya usamos en otros proyectos de Closer Search — pendiente de ajustar con la operativa real de Likha Homes.</p>
+      <ul class="checklist">
+        <li><span class="box"></span>Verifiqué el origen del lead y el listado del que proviene</li>
+        <li><span class="box"></span>Confirmé ubicación, tipo de propiedad y si ya tiene licencia turística</li>
+        <li><span class="box"></span>Expliqué el modelo de comisión con claridad (20% + IVA sobre el neto, sin cuotas ni permanencia)</li>
+        <li><span class="box"></span>No prometí una cifra de ingresos u ocupación sin estudio previo</li>
+        <li><span class="box"></span>Ofrecí el estudio de rentabilidad gratuito como siguiente paso concreto</li>
+        <li><span class="box"></span>Registré los datos de contacto y de la propiedad</li>
+        <li><span class="box"></span>Dejé claro el siguiente paso y quién contacta a quién</li>
+      </ul>
+    </section>
+
+    <section id="recursos">
+      <div class="section-tag">Referencia</div>
+      <h2>Recursos y enlaces</h2>
+      <table>
+        <thead><tr><th>Canal</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Web</td><td><a href="https://likhahomes.com" target="_blank" rel="noopener">likhahomes.com</a></td></tr>
+          <tr><td class="label">Blog</td><td><a href="https://likhahomes.com/blog" target="_blank" rel="noopener">likhahomes.com/blog</a> — datos de mercado por zona</td></tr>
+          <tr><td class="label">Teléfono / WhatsApp</td><td><a href="tel:+34650286275">+34 650 286 275</a> · <a href="https://wa.me/34650286275" target="_blank" rel="noopener">wa.me/34650286275</a></td></tr>
+          <tr><td class="label">Email</td><td><a href="mailto:likhahomes@gmail.com">likhahomes@gmail.com</a></td></tr>
+          <tr><td class="label">Instagram</td><td><a href="https://www.instagram.com/likha.homes" target="_blank" rel="noopener">@likha.homes</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="comite-inmobiliario">
+      <div class="section-tag">Criterio de sector</div>
+      <h2>Revisión del comité inmobiliario</h2>
+      <p>El informe fue revisado con criterio de gestión de alquiler vacacional e inmobiliario. Estas son las correcciones y añadidos que un closer necesita para no vender humo ni hacer perder tiempo al equipo con leads que la regulación descarta de entrada.</p>
+
+      <h3>1. Semáforo regulatorio — cualificar antes de vender</h3>
+      <p>La licencia autonómica es solo una de cuatro capas. Una vivienda es viable únicamente si pasa las cuatro:</p>
+      <table>
+        <thead><tr><th>Capa</th><th>Qué es</th><th>Qué pregunta el closer</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Licencia / registro autonómico</td><td>Cada comunidad autónoma regula la VUT (licencia, declaración responsable, mínimo de noches, etc.).</td><td>"¿Tiene ya licencia o número de registro turístico de la comunidad?"</td></tr>
+          <tr><td class="label">Registro Único de Alquileres</td><td>Número de registro estatal (RD 1312/2024), obligatorio desde julio 2025 para anunciar en Airbnb, Booking, Vrbo… Sin él, las plataformas retiran el anuncio.</td><td>"¿Tiene el número del Registro Único? Si no, nosotros lo tramitamos junto con la licencia."</td></tr>
+          <tr><td class="label">Comunidad de propietarios</td><td>Con la reforma de la Ley de Propiedad Horizontal (2025), una VUT nueva en un piso necesita aprobación expresa de la comunidad (mayoría de 3/5), y la comunidad puede prohibirla. Descarta más leads que la licencia.</td><td>"¿Es piso o casa independiente? Si es piso, ¿la comunidad tiene algo acordado sobre alquiler turístico?"</td></tr>
+          <tr><td class="label">Zona bloqueada</td><td>Municipios con moratoria o extinción de licencias: Barcelona (extinción prevista 2028), Madrid centro, Baleares, Canarias, Málaga capital, entre otros. Verificar siempre municipio concreto.</td><td>"¿En qué municipio y barrio está exactamente?" → contrastar con la tabla de zonas de Likha.</td></tr>
+        </tbody>
+      </table>
+      <div class="grid-3">
+        <div class="card" style="border-color:#3E6B3E;"><h4 style="color:#8FD18F;">Verde</h4><p>Ya tiene licencia + registro único, o es casa independiente en zona sin moratoria. Se vende.</p></div>
+        <div class="card" style="border-color:#8E763A;"><h4 style="color:var(--gold-soft);">Ámbar</h4><p>Piso sin licencia en zona abierta: viable si la comunidad no lo prohíbe. Se ofrece el estudio y se cualifica la comunidad antes de avanzar.</p></div>
+        <div class="card" style="border-color:#4A2A24;"><h4 style="color:#D08370;">Rojo</h4><p>Zona con moratoria o comunidad que lo prohíbe. No se vende: se agradece, se anota y se pasa al siguiente. Nunca insinuar que "se puede arreglar".</p></div>
+      </div>
+      <div class="callout warn"><strong>Pendiente de Likha Homes:</strong> tabla de municipios verde / ámbar / rojo en las zonas donde operan (Alicante, Murcia, Cantabria y las que abran). Sin esa tabla, el closer no puede cualificar en llamada.</div>
+
+      <h3>2. Prospección en frío a particulares — riesgo legal</h3>
+      <div class="callout warn"><strong>Bloqueante:</strong> desde junio de 2023 la Ley 11/2022 General de Telecomunicaciones (art. 66) prohíbe las llamadas comerciales a particulares sin consentimiento previo, y además rige la Lista Robinson. El perfil 1 (particular), marcado como principal, es justo el que no se puede llamar en frío desde un listado comprado o extraído de portales. Hay que aclarar con Likha de dónde sale el listado y bajo qué base legal (consentimiento, relación previa, etc.). Los perfiles B2B (agente, inmobiliaria, promotora) no tienen esta limitación.</div>
+
+      <h3>3. Costes reales que el propietario debe conocer</h3>
+      <p>Complementa la sección "Coste extra para el propietario". Si no se mencionan, el argumento "por qué compensa más" pierde credibilidad ante cualquier propietario informado:</p>
+      <table>
+        <thead><tr><th>Concepto</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td class="label">Seguro específico</td><td>El seguro de hogar estándar no cubre actividad de alquiler turístico. Hace falta póliza específica con responsabilidad civil.</td></tr>
+          <tr><td class="label">Suministros</td><td>Luz, agua, gas e internet los paga el propietario (en larga estancia los paga el inquilino).</td></tr>
+          <tr><td class="label">Documentación</td><td>Certificado energético, cédula de habitabilidad o licencia de primera ocupación según comunidad autónoma.</td></tr>
+          <tr><td class="label">Tasa turística</td><td>Cataluña, Baleares y Comunidad Valenciana aplican tasas o impuestos turísticos que se repercuten al huésped pero hay que liquidar.</td></tr>
+          <tr><td class="label">Mayor desgaste</td><td>Más rotación = más reposición de menaje, textil y pequeñas reparaciones.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>4. Fiscalidad — saberla, no asesorar</h3>
+      <div class="grid-2">
+        <div class="card"><h4>Residente en España</h4><p>El alquiler vacacional no tiene la reducción del 50-60% en IRPF que sí tiene el alquiler de vivienda habitual. Los gastos (incluida la comisión de Likha) son deducibles. Si se prestan servicios propios de hostelería puede tratarse como actividad económica.</p></div>
+        <div class="card"><h4>No residente (perfil 4)</h4><p>Tributa por IRNR: 19% para residentes en la UE/EEE (con gastos deducibles) y 24% para el resto (sin deducir gastos). Al propietario británico o suizo esto le cambia la cuenta de rentabilidad.</p></div>
+      </div>
+      <div class="callout"><strong>Regla para el closer:</strong> el closer no asesora fiscalmente. Si sale el tema: "Eso lo revisas con tu asesor; lo que te aseguro es que en el estudio de rentabilidad verás el neto antes de impuestos con todos los gastos reales".</div>
+
+      <h3>5. Correcciones al argumentario</h3>
+      <div class="dodont">
+        <div class="box dont"><h4>Se ha corregido</h4><ul>
+          <li>"Se evita el riesgo de okupación" → sustituido por "rotación constante y cobro anticipado". En vacacional también hay huéspedes que no se van.</li>
+          <li>ADR Torrevieja: el "+200€" es pico de agosto; el ADR medio de zona es 93-123€. Ahora el informe lo dice explícitamente.</li>
+          <li>Ocupación 52% → 88%: se mantiene como gancho, pero con nota de que falta confirmar si es media anual o de temporada alta.</li>
+        </ul></div>
+        <div class="box do"><h4>Añadir al discurso</h4><ul>
+          <li>Estacionalidad: en Cantabria la temporada fuerte son 8-10 semanas; en Alicante/Murcia es más larga. Adaptar la expectativa por zona.</li>
+          <li>Registro de viajeros: nombrarlo como SES.Hospedajes (RD 933/2021). Suena a experto y es un dolor real del propietario.</li>
+          <li>La comisión del 20% + IVA sobre neto está en el estándar del sector (15-25%). Se puede decir como argumento de normalidad.</li>
+          <li>Daños: la respuesta estándar del sector es AirCover (Airbnb), depósito en Booking y fianza propia en reservas directas. Likha debe confirmar cuál aplica.</li>
+        </ul></div>
+      </div>
+
+      <h3>6. Perfiles — lectura de sector</h3>
+      <table>
+        <thead><tr><th>Perfil</th><th>Valoración</th><th>Nota</th></tr></thead>
+        <tbody>
+          <tr><td class="label">1 · Particular infrautilizado</td><td>Mejor lead</td><td>Pero no prospectable en frío por teléfono sin base legal (ver punto 2).</td></tr>
+          <tr><td class="label">2 · Ya alquila a largo plazo</td><td>Bueno con matices</td><td>Contratos LAU vigentes (5-7 años de mínimo) no se pueden romper; en Cataluña el alquiler de temporada ya está regulado. No es un simple "cambio de modelo".</td></tr>
+          <tr><td class="label">3 · Vivienda en venta</td><td>Marginal</td><td>Quien vende quiere liquidez, no un 20% sobre un neto incierto, y suele tener exclusiva con una agencia. Dejarlo como perfil secundario.</td></tr>
+          <tr><td class="label">4 · Extranjero con 2ª vivienda</td><td>Muy bueno</td><td>Es quien más necesita gestión real. Requiere inglés y conocer la fiscalidad de no residente (punto 4).</td></tr>
+        </tbody>
+      </table>
+
+      <h3>7. Preguntas de cualificación regulatoria — para el guion</h3>
+      <ul class="checklist">
+        <li><span class="box"></span>¿Piso o casa independiente? Si es piso: ¿la comunidad tiene algo acordado sobre alquiler turístico?</li>
+        <li><span class="box"></span>¿En qué municipio y barrio está exactamente? (contrastar con semáforo de zonas)</li>
+        <li><span class="box"></span>¿Tiene licencia turística y número del Registro Único de Alquileres, o habría que tramitarlos?</li>
+        <li><span class="box"></span>¿Está alquilada ahora mismo con contrato en vigor? ¿Hasta cuándo?</li>
+        <li><span class="box"></span>¿Reside en España el propietario? (fiscalidad e idioma)</li>
+      </ul>
+      <p class="subnote">Las tres primeras van al minuto 1 de la llamada: si la vivienda está en rojo, no hay venta que hacer.</p>
+    </section>
+
+    <section id="huecos">
+      <div class="section-tag">Control de calidad</div>
+      <h2>Huecos pendientes de este informe</h2>
+      <p>Siguiendo la misma estructura que el informe de First Step Cooperation, estas son las secciones que ese modelo incluye y que aquí todavía no se han podido rellenar del todo — algunas ya se completaron al revisar la web de Likha Homes, otras siguen pendientes de que el propio cliente las aporte:</p>
+      <div class="callout warn">
+        <strong>Sigue faltando por definir con Likha Homes (nadie puede resolverlo salvo el cliente):</strong>
+        <ul style="margin:8px 0 0; padding-left:20px;">
+          <li>Avatar del cliente detallado (edad, situación económica, motivaciones) más allá del perfil general ya recogido</li>
+          <li>Guion de prospección en frío y guiones completos: prellamada, cualificación por chat, llamada de venta paso a paso, cierre por WhatsApp</li>
+          <li>Reglas de reparto del listado de prospectos entre los dos turnos, para evitar duplicar contactos</li>
+          <li>Política real ante daños causados por huéspedes o disputas con propietarios</li>
+          <li>Tabla de municipios verde / ámbar / rojo en las zonas donde operan (semáforo regulatorio)</li>
+          <li>Origen y base legal del listado de prospectos para llamada en frío a particulares (Ley 11/2022, art. 66)</li>
+          <li>Confirmar si el 88% de ocupación es media anual o de temporada alta, y sobre cuántas propiedades</li>
+        </ul>
+      </div>
+      <p class="subnote">En cuanto se disponga del resto de esta información, se puede ampliar el informe siguiendo exactamente esta misma estructura.</p>
+    </section>
+
+    <footer>
+      <svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#807A6C" stroke-width="4"/></svg>
+      Closer Search · Informe operativo interno · Likha Homes
+    </footer>
+  </main>
+</div>
+</body>
+</html>
